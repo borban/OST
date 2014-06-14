@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <title> My Favorite Movies </title>
+  <title> My Favorite Movies, Take Two </title>
   <meta charset="utf-8">
   <script>
     function Movie(title, rating, genre, description){
@@ -9,6 +9,13 @@
       this.rating = rating;
       this.genre = genre;
       this.description = description;
+      
+      this.print = function(){
+        var s = this.title + "; rated: " + this.rating + "; genre: " + this.genre +
+                "; " + this.description;
+        return s;
+      }
+    
     }
     
     var movieList = [];
@@ -41,8 +48,7 @@
       else {
         var movie = new Movie(title, rating, genre, description);
         movieList.push(movie);
-        var moview = document.getElementById("movies");
-        movies.innerHTML = "Added " + movie.title + " to the list.";
+        addMovieToList(movie);
         
         var theForm = document.getElementById("theForm");
         theForm.reset();
@@ -50,6 +56,17 @@
       
     }
       
+    function addMovieToList(movie){
+      var movieList = document.getElementById("movieList");
+      var li = document.createElement("li");
+      li.innerHTML = movie.print();
+      if(movieList.childElementCount == 0){
+        movieList.appendChild(li);
+      }
+      else {
+        movieList.insertBefore(li, movieList.firstChild);
+      }
+    }
     
   </script>
 </head>
@@ -73,8 +90,8 @@
     <br>
     <input type="button" id="submitButton" value="Add movie!"><br>
   </form>
-  <div id="movies">
-  </div>
+  <ul id="movieList">
+  </ul>
 </body>
 </html>
     
